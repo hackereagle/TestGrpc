@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CalculatorInstance.Base;
+using CalculatorInstance;
 
 namespace CalculatorInstance.BusinessLogics
 {
@@ -16,6 +17,7 @@ namespace CalculatorInstance.BusinessLogics
         public IObservable<string> CurrentExpression => _curExpression.AsObservable();
         private ISubject<string> _curVal; // display on down textblock
         public IObservable<string> Value => _curVal.AsObservable();
+        //private ComputeService.ComputeServiceClient _computeService;
 
         private Queue<string> _valQueue;
         public CalculatorLogic()
@@ -23,6 +25,9 @@ namespace CalculatorInstance.BusinessLogics
             this._valQueue = new Queue<string>();
             this._curVal = new Subject<string>();
             this._curExpression = new Subject<string>();
+
+            //var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5000");
+            //this._computeService = new ComputeService.ComputeServiceClient(channel);
         }
 
         private string _valStash = "";
@@ -49,53 +54,20 @@ namespace CalculatorInstance.BusinessLogics
             });
         }
 
-        private T CalculateInstance<T>(T n1, T n2, string opt)
-        {
-            dynamic _n1 = n1;
-            dynamic _n2 = n2;
-            dynamic result = -9999999999999;
-            if (opt == "+")
-            {
-                result = _n1 + _n2;
-                return result;
-            }
-            else if (opt == "-")
-            {
-                result = _n1 - _n2;
-                return result;
-            }
-            else if (opt == "*")
-            {
-                result = _n1 * _n2;
-                return result;
-            }
-            else if (opt == "/")
-            {
-                result = _n1 / _n2;
-                return result;
-            }
-            else
-            {
-                throw new ArgumentException("Undefined operator!");
-            }
-        }
-
         private string Calculate(string num1, string opt, string num2)
-        { 
-            bool byDouble = num1.IndexOf(".") != -1 || num2.IndexOf(".") != -1;
+        {
+            //var request = new CalculateRequest 
+            //{
+            //    FirstNum = num1,
+            //    Operator = opt,
+            //    SecondNum = num2,
+            //};
+            //var result = _computeService.Arithmetic(request);
 
-            if (byDouble)
-            { 
-                double n1 = double.Parse(num1);
-                double n2 = double.Parse(num2);
-                return $"{CalculateInstance<double>(n1, n2, opt)}";
-            }
-            else
-            { 
-                int n1 = int.Parse(num1);
-                int n2 = int.Parse(num2);
-                return $"{CalculateInstance<int>(n1, n2, opt)}";
-            }
+            //return result.Result;
+
+            // TODO: need to call grpc service
+            throw new NotImplementedException();
         }
 
         public async Task ReceiveOperatorCommand(string str)
@@ -137,50 +109,20 @@ namespace CalculatorInstance.BusinessLogics
             });
         }
 
-        private double CalculateInstance<T>(T n1, string opt)
-        {
-            double _n1 = Convert.ToDouble(n1);
-            double result = -9999999999999.0;
-            if (opt == "%")
-            {
-                result = Convert.ToDouble(_n1) / 100.0;
-                return result;
-            }
-            else if (opt == "1/x")
-            {
-                result = 1.0 / _n1;
-                return result;
-            }
-            else if (opt == "x^2")
-            {
-                result = Math.Pow(_n1, 2.0);
-                return result;
-            }
-            else if (opt == "x^(1/2)")
-            {
-                result = Math.Sqrt(_n1);
-                return result;
-            }
-            else
-            {
-                throw new ArgumentException("Undefined operator!");
-            }
-        }
-
         private string Calculate(string num1, string opt)
-        { 
-            bool byDouble = num1.IndexOf(".") != -1;
+        {
+            //var request = new CalculateRequest 
+            //{
+            //    FirstNum = num1,
+            //    Operator = opt,
+            //    SecondNum = "",
+            //};
+            //var result = _computeService.OperatorCalculate(request);
 
-            if (byDouble)
-            { 
-                double n1 = double.Parse(num1);
-                return $"{CalculateInstance<double>(n1, opt)}";
-            }
-            else
-            { 
-                int n1 = int.Parse(num1);
-                return $"{CalculateInstance<int>(n1, opt)}";
-            }
+            //return result.Result;
+
+            // TODO: need to call grpc service
+            throw new NotImplementedException();
         }
 
         public async Task ReceiveOtherCommand(string str)

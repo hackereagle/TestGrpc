@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "CalculatorInstance";
+
+package compute;
+
+// The computeService service definition.
+service ComputeService {
+  rpc Arithmetic (CalculateRequest) returns (CalculateResult) {}
+  rpc OperatorCalculate (CalculateRequest) returns (CalculateResult) {}
+}
+
+message CalculateRequest {
+  string firstNum = 1;
+  string operator = 2;
+  string secondNum = 3;
+}
+
+message CalculateResult {
+  string result = 1;
+}
