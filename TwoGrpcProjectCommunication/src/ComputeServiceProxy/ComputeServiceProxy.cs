@@ -7,8 +7,11 @@ namespace ComputeServiceProxy
         private ComputeService.ComputeServiceClient _computeService;
 
         public ComputeServiceProxy()
-        { 
-            var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5000");
+        {
+            // If execute service via executable, using this code.
+            //var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5000");
+            // If click debug button, port will be different. So must be using this.
+            var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5056");
             this._computeService = new ComputeService.ComputeServiceClient(channel);
         }
 
