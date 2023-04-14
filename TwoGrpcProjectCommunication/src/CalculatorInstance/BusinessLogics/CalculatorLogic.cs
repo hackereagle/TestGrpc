@@ -17,7 +17,6 @@ namespace CalculatorInstance.BusinessLogics
         public IObservable<string> CurrentExpression => _curExpression.AsObservable();
         private ISubject<string> _curVal; // display on down textblock
         public IObservable<string> Value => _curVal.AsObservable();
-        //private ComputeService.ComputeServiceClient _computeService;
         private ComputeServiceProxy.ComputeServiceProxy _computeServiceProxy;
 
         private Queue<string> _valQueue;
@@ -27,8 +26,6 @@ namespace CalculatorInstance.BusinessLogics
             this._curVal = new Subject<string>();
             this._curExpression = new Subject<string>();
 
-            //var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5000");
-            //this._computeService = new ComputeService.ComputeServiceClient(channel);
             this._computeServiceProxy = new ComputeServiceProxy.ComputeServiceProxy();
         }
 
@@ -58,15 +55,6 @@ namespace CalculatorInstance.BusinessLogics
 
         private string Calculate(string num1, string opt, string num2)
         {
-            //var request = new CalculateRequest
-            //{
-            //    FirstNum = num1,
-            //    Operator = opt,
-            //    SecondNum = num2,
-            //};
-            //var result = _computeService.Arithmetic(request);
-
-            //return result.Result;
             return _computeServiceProxy.Calculate(num1, opt, num2);
         }
 
@@ -111,15 +99,6 @@ namespace CalculatorInstance.BusinessLogics
 
         private string Calculate(string num1, string opt)
         {
-            //var request = new CalculateRequest
-            //{
-            //    FirstNum = num1,
-            //    Operator = opt,
-            //    SecondNum = "",
-            //};
-            //var result = _computeService.OperatorCalculate(request);
-
-            //return result.Result;
             return _computeServiceProxy.Calculate(num1, opt);
         }
 
