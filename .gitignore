@@ -446,3 +446,4 @@ _deps
 
 ######################## Others
 grpc/
+TwoCppGrpcProjectCommunication/Protos/Result/

@@ -16,8 +16,12 @@ sudo ./DownloadAndConfigGrpc.sh
 If you don't sure whether your enviroment can build gRPC, you can type `y` or `Y` when shell script ask install compiling tools.
 
 ## Develop
-1. First, you need to define .proto file. I define and locate it in Protos folder.
-2. Compiling .proto file to server and client codes.
+First, you need to define .proto file. I define and locate it in Protos folder.</br>
+Second, compiling .proto file to server and client codes. In this project, I already write compiling command into shell script. You just execute it like
+```
+./CompileProtoFile.sh
+```
+It will generate 4 files: `<proto-file-name>.grpc.pb.cc`, `<proto-file-name>.grpc.pb.h`, `<proto-file-name>.pb.cc` and `<proto-file-name>.pb.h` .</br>
 
 ## Reference
 * [Learning-gRPC 00Protobuf]("https://kevinbird61.github.io/grpc-practice/" "learning gRpc about protobuf")
