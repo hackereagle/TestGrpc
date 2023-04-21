@@ -27,8 +27,8 @@ It compile protobuf twice and it will generate 4 files: `<proto-file-name>.grpc.
 `<proto-file-name>.grpc.pb.cc` and `<proto-file-name>.grpc.pb.h` are server and client codes.</br>
 And you can generate server/client codes via CMake
  (refer to [gRPC and Plugin support in CMake](https://www.f-ax.de/dev/2020/11/08/grpc-plugin-cmake-support.html "This is my compiling .porto file with CMake reference.")). And this way is better than compiling with `CompileProtoFile.sh`. Because using CMake helps with keeping all the dependencies in one place.</br>
-I wrote done a CMakeLists.txt in Protos. And I add Protos folder into TwoCppGrpcProjectCommunication/CMakeLists.txt. I define a task that only compile proto files.
-NOTE: CMakeLists.txt of .proto can not use aux_source_directory. aux_source_directory can not collect .proto files.
+I wrote done a CMakeLists.txt in Protos. And I add Protos folder into TwoCppGrpcProjectCommunication/CMakeLists.txt. I define a task that only compile proto files.</br>
+**NOTE:** CMakeLists.txt of .proto can not use aux_source_directory. aux_source_directory can not collect .proto files.
 
 ## Reference
 * [Learning-gRPC 00Protobuf](https://kevinbird61.github.io/grpc-practice/ "learning gRpc about protobuf")
