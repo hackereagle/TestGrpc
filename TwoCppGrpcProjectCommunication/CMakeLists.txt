@@ -10,4 +10,11 @@ set(CMAKE_VERBOSE_MAKEFILE OFF) # opened if want to debug dependency
 set(CMAKE_RULE_MESSAGES ON)
 set(CMAKE_CXX_FLAGS "-std=c++17${CMAKE_CXX_FLAGS}")
 
-add_subdirectory(Client)
+if (ONLY_COMPILE_PROTOS EQUAL 1)
+	message(STATUS "Only build proto files.")
+	add_subdirectory(Protos)
+else()
+	add_subdirectory(Protos)
+	add_subdirectory(Client)
+	add_subdirectory(ComputeService)
+endif()

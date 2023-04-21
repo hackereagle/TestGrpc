@@ -82,6 +82,15 @@
                 "cwd": "${workspaceFolder}"
             }
         },
-
+        {
+            "label": "Only Compile Proto File",
+            "type": "shell",
+            "command": "rm -r build/Protos; mkdir build/Protos; time cmake -E chdir build/ cmake -DONLY_COMPILE_PROTOS=1 ..; time cmake --build build/",
+            "problemMatcher": [],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
 	]
 }

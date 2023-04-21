@@ -1,7 +1,8 @@
 #!/bin/bash
 
-ProtoFileFolder="./Protos"
-ResultFileFolder="${ProtoFileFolder}/Result"
+ProtoFileFolder="Protos"
+#ResultFileFolder="${ProtoFileFolder}/Result"
+ResultFileFolder="build/${ProtoFileFolder}"
 if [ ! -d "${ResultFileFolder}" ]
 then
 	mkdir -p "${ResultFileFolder}"

@@ -447,3 +447,5 @@ _deps
 ######################## Others
 grpc/
 TwoCppGrpcProjectCommunication/Protos/Result/
+build/
+TwoCppGrpcProjectCommunication/build/Protos/
