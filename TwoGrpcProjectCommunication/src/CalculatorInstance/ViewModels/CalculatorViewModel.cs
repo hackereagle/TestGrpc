@@ -18,12 +18,22 @@ namespace CalculatorInstance.ViewModel
         public CalculatorViewModel()
         { 
             this._calculatorLogic = new BusinessLogics.CalculatorLogic();
-            this._calculatorLogic.Value.Subscribe(x => { this.Value = x; });
+            this._calculatorLogic.Value.Subscribe(x => 
+            {
+                this.Value = x;
+                Enable = true;
+            });
             this._calculatorLogic.CurrentExpression.Subscribe(x => { this.CurrentExpression = x; });
 
-            this._numberBtnCommand = new AsyncCommand<object>(this.NumberButtonCommand);
-            this._operatorBtnCommand = new AsyncCommand<object>(this.OperatorButtonCommand);
-            this._otherBtnCommand = new AsyncCommand<object>(this.OtherButtonCommand);
+            this._numberBtnCommand = new AsyncCommand<object>(this.NumberButtonCommand, BtnCanExecute);
+            this._operatorBtnCommand = new AsyncCommand<object>(this.OperatorButtonCommand, BtnCanExecute);
+            this._otherBtnCommand = new AsyncCommand<object>(this.OtherButtonCommand, BtnCanExecute);
+            Enable = true;
+        }
+
+        bool BtnCanExecute(object obj)
+        {
+            return !_isBusy;
         }
 
         public ICommand NumberBtn => _numberBtnCommand;
@@ -52,6 +62,17 @@ namespace CalculatorInstance.ViewModel
             }
         }
 
+        bool _isBusy;
+        public bool Enable
+        {
+            get { return !_isBusy; }
+            set
+            { 
+                _isBusy = !value;
+                OnPropertyChanged("Enable");
+            }
+        }
+
         private async Task NumberButtonCommand(object obj)
         {
             await this._calculatorLogic.ReceiveNumberCommand((string)obj);
@@ -59,11 +80,17 @@ namespace CalculatorInstance.ViewModel
 
         private async Task OperatorButtonCommand(object obj)
         { 
+            Enable = false;
+            // Simulating caculate much time
+            await Task.Delay(2000);
             await this._calculatorLogic.ReceiveOperatorCommand((string)obj);
         }
 
         private async Task OtherButtonCommand(object obj)
-        { 
+        {
+            Enable = false;
+            // Simulating caculate much time
+            await Task.Delay(2000);
             await this._calculatorLogic.ReceiveOtherCommand((string)obj);
         }
     }
