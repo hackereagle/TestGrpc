@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Calculator.hpp"
+#include "compute.pb.h"
+#include "compute.grpc.pb.h"
 
 int main(int argc, const char** argv)
 {

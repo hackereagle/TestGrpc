@@ -6,8 +6,7 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/**/**",
                 "${workspaceFolder}/**/**/**",
-                "/usr/local/include",
-                "/usr/local/include/gmock"
+                "/usr/local/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
