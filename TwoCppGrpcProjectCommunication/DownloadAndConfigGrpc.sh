@@ -6,7 +6,10 @@ then
 	read -p "Please ensure already installed brew!" TMP
 
 	brew install grpc
+	# openssl dependency. Please refer to https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library
 	brew install openssl
+	brew link --force openssl
+	pkg-config --modversion openssl
 elif [[ "$OSTYPE" =~ ^linux ]]
 then
 	echo "Would you like to install compiling tools?[y/n]"
