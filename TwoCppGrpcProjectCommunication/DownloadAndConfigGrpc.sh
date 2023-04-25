@@ -6,6 +6,7 @@ then
 	read -p "Please ensure already installed brew!" TMP
 
 	brew install grpc
+	brew install openssl
 elif [[ "$OSTYPE" =~ ^linux ]]
 then
 	echo "Would you like to install compiling tools?[y/n]"
