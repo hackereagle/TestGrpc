@@ -24,15 +24,15 @@ public:
 		std::string first = request->firstnum();
 		std::string opt = request->operator_();
 		std::string second = request->secondnum();
+		std::cout << "receive request: " << first << " " << opt << " " << second << std::endl;
 		response->set_result("123");
-		std::cout << first << " " << opt << " " << second << std::endl;
 		return ::grpc::Status::OK;
 	}
 };
 
 void RunServer()
 {
-	std::string server_address = "0.0.0.0:50051";
+	std::string server_address = "localhost:50051";
 	ComputeService service = ComputeService();
 
 	grpc::ServerBuilder builder;

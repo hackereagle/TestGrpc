@@ -4,19 +4,35 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <memory>
+#include <grpc/grpc.h>
+#include "compute.pb.h"
+#include "compute.grpc.pb.h"
 #include "GenericException.hpp"
 
 class Calculator
 {
 public:
-	Calculator()
-	{}
+	Calculator(std::shared_ptr<grpc::Channel> channel)
+	{
+		this->_stub = compute::ComputeService::NewStub(channel);
+	}
 
 	~Calculator()
 	{}
 
 	std::string Calculate(std::string num1, std::string opt, std::string num2)
 	{
+		grpc::ClientContext context;
+		compute::CalculateRequest request;
+		request.set_firstnum(num1);
+		request.set_operator_(opt);
+		request.set_secondnum(num2);
+		compute::CalculateResult result;
+		std::cout << "yo" << std::endl;
+		grpc::Status status = this->_stub->Arithmetic(&context, request, &result);
+		std::cout << "yo~! status = " << status.ok() << ", message = " << status.error_message() << ", result = " << result.result() << std::endl;
+
 		bool isFloat = false;
 		if (num1.find('.') != std::string::npos || num2.find('.') != std::string::npos)
 			isFloat = true;
@@ -49,6 +65,8 @@ public:
 	}
 
 private:
+	std::unique_ptr<compute::ComputeService::Stub> _stub;
+
 	template<class T>
 	T CalculateInstance(T num1, std::string opt, T num2)
 	{
