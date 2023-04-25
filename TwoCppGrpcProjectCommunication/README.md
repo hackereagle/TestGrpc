@@ -38,3 +38,4 @@ I wrote done a CMakeLists.txt in Protos. And I add Protos folder into TwoCppGrpc
 
 ## TODO
 - [ ] Write install compiling tools in MacOs into 00.ConfigBuildEnv.sh
+- [ ] Survey how to control exception as service occur exception.
