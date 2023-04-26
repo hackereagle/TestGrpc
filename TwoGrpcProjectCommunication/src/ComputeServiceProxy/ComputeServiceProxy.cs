@@ -1,4 +1,5 @@
 ﻿using CalculatorInstance;
+using SclinMiscLib;
 
 namespace ComputeServiceProxy
 {
@@ -23,7 +24,28 @@ namespace ComputeServiceProxy
                 Operator = opt,
                 SecondNum = num2,
             };
-            var result = _computeService.Arithmetic(request);
+
+            CalculateResult result;
+            try
+            {
+                result = _computeService.Arithmetic(request);
+            }
+            catch (Grpc.Core.RpcException ex)
+            { 
+                ConsoleWriterWrapper.Log($"In Caculate(string, string, string), call ComputeService.Arithmetic occur error: {ex.StatusCode.ToString()}\n", ex);
+                result = new CalculateResult
+                {
+                    Result = "NaN"
+                };
+            }
+            catch (Exception ex)
+            {
+                ConsoleWriterWrapper.Log($"In Caculate(string, string, string), call ComputeService.Arithmetic occur error", ex);
+                result = new CalculateResult
+                {
+                    Result = "NaN"
+                };
+            }
 
             return result.Result;
         }
@@ -36,7 +58,27 @@ namespace ComputeServiceProxy
                 Operator = opt,
                 SecondNum = "",
             };
-            var result = _computeService.OperatorCalculate(request);
+            CalculateResult result;
+            try
+            {
+                result = _computeService.OperatorCalculate(request);
+            }
+            catch (Grpc.Core.RpcException ex)
+            { 
+                ConsoleWriterWrapper.Log($"In Caculate(string, string, string), call ComputeService.Arithmetic occur error: {ex.StatusCode.ToString()}\n", ex);
+                result = new CalculateResult
+                {
+                    Result = "NaN"
+                };
+            }
+            catch (Exception ex)
+            {
+                ConsoleWriterWrapper.Log($"In Caculate(string, string), call ComputeService.Arithmetic occur error", ex);
+                result = new CalculateResult
+                {
+                    Result = "NaN"
+                };
+            }
 
             return result.Result;
         }

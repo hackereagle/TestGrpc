@@ -14,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorInstance", "src\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputeService", "src\ComputService\ComputeService.csproj", "{C79BB4C1-AAE1-4F77-95F1-FF3DF38F8316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputeServiceProxy", "src\ComputeServiceProxy\ComputeServiceProxy.csproj", "{31194FAB-EC9B-4C67-A230-3DD5132CA22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputeServiceProxy", "src\ComputeServiceProxy\ComputeServiceProxy.csproj", "{31194FAB-EC9B-4C67-A230-3DD5132CA22F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetMisc", "..\DotNetMisc\DotNetMisc\DotNetMisc.csproj", "{8D12C062-FB50-4D11-86E8-D543D969F6A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{31194FAB-EC9B-4C67-A230-3DD5132CA22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31194FAB-EC9B-4C67-A230-3DD5132CA22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31194FAB-EC9B-4C67-A230-3DD5132CA22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D12C062-FB50-4D11-86E8-D543D969F6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D12C062-FB50-4D11-86E8-D543D969F6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D12C062-FB50-4D11-86E8-D543D969F6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D12C062-FB50-4D11-86E8-D543D969F6A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
