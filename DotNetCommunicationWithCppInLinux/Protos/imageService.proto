@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package imageComputer;
+
+// The computeService service definition.
+service ImageService {
+  rpc GetImage (ImageRequest) returns (ImageResult) {}
+}
+
+message ImageRequest {
+  string firstNum = 1;
+  string operator = 2;
+  string secondNum = 3;
+}
+
+message ImageResult {
+  string result = 1;
+}
