@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\DotNetMisc\DotNetMisc\DotNetMisc.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="Protos\compute.proto" GrpcServices="Client" />
   </ItemGroup>
 

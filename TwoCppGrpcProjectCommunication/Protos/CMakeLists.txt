@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.16)
 set(PROJECT_NAME myproto)
 project(${PROJECT_NAME})
 
-find_package(protobuf CONFIG REQUIRED)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(MACOSX TRUE)
+    find_package(protobuf REQUIRED)
+else()
+    find_package(protobuf CONFIG REQUIRED)
+endif()
 find_package(gRPC CONFIG REQUIRED)
 find_package(Threads)
 
