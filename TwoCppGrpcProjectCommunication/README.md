@@ -37,5 +37,5 @@ I wrote done a CMakeLists.txt in Protos. And I add Protos folder into TwoCppGrpc
 * [github-grpc install guide](https://github.com/grpc/grpc/blob/master/BUILDING.md "gRPC install guide")
 
 ## TODO
-- [ ] Write install compiling tools in MacOs into 00.ConfigBuildEnv.sh
+- [x] Write install compiling tools in MacOs into 00.ConfigBuildEnv.sh
 - [ ] Survey how to control exception as service occur exception.
