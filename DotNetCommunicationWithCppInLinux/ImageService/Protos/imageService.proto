@@ -11,9 +11,10 @@ message ImageRequest {
   string firstNum = 1;
   string operator = 2;
   string secondNum = 3;
-  
+
 }
 
 message ImageResult {
-  string result = 1;
+  int width = 1;
+  int height = 2;
 }
