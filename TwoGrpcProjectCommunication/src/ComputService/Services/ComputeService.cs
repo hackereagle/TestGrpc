@@ -55,17 +55,25 @@ namespace CalculatorInstance.Services
                 string opt = request.Operator;
                 bool byDouble = num1.IndexOf(".") != -1 || num2.IndexOf(".") != -1;
 
-                if (byDouble)
-                {
-                    double n1 = double.Parse(num1);
-                    double n2 = double.Parse(num2);
-                    result.Result = $"{CalculateInstance<double>(n1, n2, opt)}";
+                try
+                { 
+                    if (byDouble)
+                    {
+                        double n1 = double.Parse(num1);
+                        double n2 = double.Parse(num2);
+                        result.Result = $"{CalculateInstance<double>(n1, n2, opt)}";
+                    }
+                    else
+                    {
+                        int n1 = int.Parse(num1);
+                        int n2 = int.Parse(num2);
+                        result.Result = $"{CalculateInstance<int>(n1, n2, opt)}";
+                    }
                 }
-                else
+                catch (Exception ex) 
                 {
-                    int n1 = int.Parse(num1);
-                    int n2 = int.Parse(num2);
-                    result.Result = $"{CalculateInstance<int>(n1, n2, opt)}";
+                    result.Result = "NaN";
+                    throw new Grpc.Core.RpcException(new Status(StatusCode.Cancelled, "Occur exception"), $"In Arthmetic occur exception: {ex.Message}");
                 }
 
                 return result;
@@ -112,15 +120,23 @@ namespace CalculatorInstance.Services
                 string opt = request.Operator;
                 bool byDouble = num1.IndexOf(".") != -1;
 
-                if (byDouble)
+                try 
                 {
-                    double n1 = double.Parse(num1);
-                    result.Result = $"{CalculateInstance<double>(n1, opt)}";
+                    if (byDouble)
+                    {
+                        double n1 = double.Parse(num1);
+                        result.Result = $"{CalculateInstance<double>(n1, opt)}";
+                    }
+                    else
+                    {
+                        int n1 = int.Parse(num1);
+                        result.Result = $"{CalculateInstance<int>(n1, opt)}";
+                    }
                 }
-                else
+                catch (Exception ex) 
                 {
-                    int n1 = int.Parse(num1);
-                    result.Result = $"{CalculateInstance<int>(n1, opt)}";
+                    result.Result = "NaN";
+                    throw new Grpc.Core.RpcException(new Status(StatusCode.Cancelled, "Occur exception"), $"In OperatorCalculate occur exception: {ex.Message}");
                 }
 
                 return result;
