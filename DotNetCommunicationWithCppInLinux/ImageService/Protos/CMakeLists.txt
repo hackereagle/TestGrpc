@@ -30,3 +30,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
 protobuf_generate(TARGET ${PROJECT_NAME} LANGUAGE cpp)
 protobuf_generate(TARGET ${PROJECT_NAME} LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}")
+
+#
+# Updated to client
+#
+message(STATUS "Update proto file to client")
+execute_process(COMMAND cp ${CMAKE_SOURCE_DIR}/Protos/${PROTO_FILES} ${CMAKE_SOURCE_DIR}/../Client/src/Client/Protos)
