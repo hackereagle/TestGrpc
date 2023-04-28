@@ -14,8 +14,79 @@ typedef struct _image
 {
 	int Width = 0;
 	int Height = 0;
+	int Channels = 0;
+	int FreeImage = 0;
 	unsigned char* Data = nullptr;
 }Image;
+
+inline void ReleaseImage(Image* &img)
+{
+	if (img) {
+        if (img->FreeImage && img->Data) {
+            delete[]img->Data;
+            img->Data = nullptr;
+        }
+        delete img;
+        img = nullptr;
+    }
+}
+
+inline Image* CreateImage(int width, int height, int channels)
+{
+	Image* ret = new Image();
+    if (ret)
+    {
+        ret->Height = height;
+        ret->Width = width;
+        ret->Channels = channels;
+        
+        ret->Data = new unsigned char[width * height * channels];
+        if (!ret->Data)
+        {
+            ret->FreeImage = 0;
+            ReleaseImage(ret);
+        }
+        else
+        {
+            ret->FreeImage = 1;
+        }
+    }
+    return ret;
+}
+
+inline void* malloc_ptr(int sz)
+{
+	return malloc(sz);
+}
+
+Image* ReadImage(std::string filename)
+{
+	Image* retImg = nullptr;
+
+	bmp_header hdr;
+	void* payload = 0;
+#if _WIN32
+	bmp_error ret = bmp_img_read_ext_2(filename.c_str(), hdr, payload, malloc_ptr);	
+#else
+	bmp_error ret = bmp_img_read_ext_3(filename.c_str(), hdr, payload, malloc_ptr);
+#endif
+	if (ret == bmp_error::BMP_OK)
+	{
+		retImg = CreateImage(hdr.biWidth, hdr.biHeight, hdr.biPlanes);
+		memcpy(retImg->Data, payload, hdr.biWidth * hdr.biHeight * hdr.biPlanes);
+	}
+	else{
+		std::cout << "Reading image error!" << std::endl;
+	}
+	
+	// release data pointer from image file module
+	if (payload)
+	{
+		free(payload);
+	}
+
+	return retImg;
+}
 
 class ImageGrabber
 {
@@ -42,40 +113,17 @@ public:
 
 	Image* GetImage()
 	{
-		if (this->_filePaths.size() == 0)
-		{
+		if (this->_filePaths.size() == 0) {
 			return nullptr;
 		}
-		if ((++this->_imgIndex) >= this->_filePaths.size())
-		{
+
+		if ((++this->_imgIndex) >= this->_filePaths.size()) {
 			this->_imgIndex = 0;
 		}
 
-		const std::string imgPath = this->_filePaths[this->_imgIndex];
-		bmp_header hdr;
-		void* payload = 0;
-		bmp_error ret = bmp_img_read_ext_3(imgPath.c_str(), hdr, payload, malloc_ptr);
-		if (ret == bmp_error::BMP_OK)
-		{
-			std::cout << "read image: " << imgPath << " success!" << std::endl;
-			if (this->mCurrentImg)
-			{
-				ReleaseImage(this->mCurrentImg);
-			}
-			this->mCurrentImg = CreateImage(hdr.biWidth, hdr.biHeight, hdr.biPlanes);
-			memcpy(this->mCurrentImg->data, payload, hdr.biWidth * hdr.biHeight * hdr.biPlanes);
-			this->mMutex->unlock();
-		}
-		else{
-			std::cout << "In FolderGrabber, read image error!" << std::endl;
-		}
-		
-		// release data pointer from image file module
-		if (payload)
-		{
-			free(payload);
-		}
+		Image* img = ReadImage(this->_filePaths[this->_imgIndex]);
 
+		return img;
 	}
 
 private:

@@ -16,7 +16,7 @@ namespace Client.BusinessLogics
         private ISubject<Bitmap> _receiveImage;
         public ImageClient()
         {
-            var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:5000");
+            var channel = Grpc.Net.Client.GrpcChannel.ForAddress("http://localhost:50055");
             _client = new ImageComputer.ImageService.ImageServiceClient(channel);
             _receiveImage = new Subject<Bitmap>();
         }
@@ -30,10 +30,14 @@ namespace Client.BusinessLogics
                 try
                 {
                     ImageComputer.ImageRequest request = new ImageComputer.ImageRequest();
+                    request.FirstNum = "1";
+                    request.SecondNum = "2";
+                    request.Operator = "+";
                     // TODO: set request member
                     var result = _client.GetImage(request);
                     // TODO: trans to bitmap and publish to observers.
                     //_receiveImage.OnNext();
+                    ConsoleWriterWrapper.Log($"width = {result.Width}, height = {result.Height}");
                 }
                 catch (Grpc.Core.RpcException ex)
                 {
