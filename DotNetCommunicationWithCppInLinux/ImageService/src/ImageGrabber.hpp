@@ -2,11 +2,13 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <filesystem>
 #include <memory>
 #include <string.h>
 #include "libbmp.h"
+#include "GenericException.hpp"
 
 namespace fs = std::filesystem;
 
@@ -123,7 +125,20 @@ public:
 		}
 		std::cout << "Using " << lightLevel << " level light to grab!" << std::endl;
 
-		Image* img = ReadImage(this->_filePaths[this->_imgIndex]);
+		Image* img = nullptr;
+		try {
+			img = ReadImage(this->_filePaths[this->_imgIndex]);
+		}
+		catch(const std::exception& e) {
+			std::ostringstream ss;
+			ss << "In ImageGrabber::GetImage reading image occur error: " << e.what() << std::endl;
+			ss << "\n\tindex = " << this->_imgIndex << "\n\tfile path = " << this->_filePaths[this->_imgIndex] << std::endl;
+			
+			std::string errStr = ss.str();
+			std::cout << errStr << std::endl;
+			throw new GenericException(errStr);
+		}
+		
 
 		return img;
 	}
