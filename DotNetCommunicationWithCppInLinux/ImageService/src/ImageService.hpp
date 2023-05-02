@@ -41,8 +41,6 @@ public:
 			response->set_height(img->Height);
 			response->set_data((const char*)img->Data, img->Width * img->Height);
 
-			this->ThrowExceptionMethod();
-
 			status = grpc::Status(grpc::StatusCode::OK, "Finished grabbing image");
 			ReleaseImage(img);
 		}
@@ -71,9 +69,4 @@ public:
 private:
 	std::unique_ptr<ImageGrabber> _camera;
 
-	void ThrowExceptionMethod()
-	{
-		std::cout << "In ThrowExceptionMethod throw exception!" << std::endl;
-		throw new GenericException("Test cpp throw exception!");
-	}
 };
