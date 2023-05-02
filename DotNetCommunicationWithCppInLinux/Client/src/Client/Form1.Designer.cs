@@ -39,6 +39,7 @@
             ptbDisplay.Location = new Point(23, 22);
             ptbDisplay.Name = "ptbDisplay";
             ptbDisplay.Size = new Size(443, 406);
+            ptbDisplay.SizeMode = PictureBoxSizeMode.Zoom;
             ptbDisplay.TabIndex = 0;
             ptbDisplay.TabStop = false;
             // 

@@ -32,13 +32,28 @@ public:
 			int lightLevel = request->lightlevel();
 			int reqNumImgs = request->getnumbersofimg();
 
-			std::cout << "receive request: light level = " << lightLevel << ", request numbers of image = " << reqNumImgs << std::endl;
+			std::cout << "*** receive request: light level = " << lightLevel << ", request numbers of image = " << reqNumImgs << std::endl;
 
 			Image* img = _camera->GetImage(lightLevel);
 			response->set_width(img->Width);
 			response->set_height(img->Height);
+			response->set_data((const char*)img->Data, img->Width * img->Height);
+
+			// Validation
+			// std::cout << "\tValidation 0~9 in byte array: ";
+			// for (int i = 0; i < 10; i++) {
+			// 	std::cout << " " << (int)*(img->Data + i);
+			// }
+			// std::cout << std::endl;
+
+			// std::cout << "\tValidation 100~109 in byte array: ";
+			// for (int i = 0; i < 10; i++) {
+			// 	std::cout << " " << (int)*(img->Data + 100 + i);
+			// }
+			// std::cout << std::endl;
 
 			status = grpc::Status(grpc::StatusCode::OK, "Finished grabbing image");
+			ReleaseImage(img);
 		}
 		catch(const std::exception& e) {
 			std::ostringstream ss;
@@ -54,8 +69,6 @@ public:
 			status = grpc::Status(grpc::StatusCode::INTERNAL, errStr);
 		}
 		
-		//response->set_data();
-
 		return status;
 	}
 	
