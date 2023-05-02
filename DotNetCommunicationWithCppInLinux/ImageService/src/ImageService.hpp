@@ -8,6 +8,7 @@
 #include "imageService.grpc.pb.h"
 #include "imageService.pb.h"
 #include "ImageGrabber.hpp"
+#include "GenericException.hpp"
 
 #ifdef PROJECT_DIR
 	#define IMAGE_PATH PROJECT_DIR"/Images/"
@@ -27,10 +28,11 @@ public:
     ::grpc::Status GetImage(::grpc::ServerContext* context, const ::ImageComputer::ImageRequest* request, ::ImageComputer::ImageResult* response) override
 	{
 		grpc::Status status;
-		
+		int lightLevel = -1;
+		int reqNumImgs = -1;
 		try {
-			int lightLevel = request->lightlevel();
-			int reqNumImgs = request->getnumbersofimg();
+			lightLevel = request->lightlevel();
+			reqNumImgs = request->getnumbersofimg();
 
 			std::cout << "*** receive request: light level = " << lightLevel << ", request numbers of image = " << reqNumImgs << std::endl;
 
@@ -38,6 +40,8 @@ public:
 			response->set_width(img->Width);
 			response->set_height(img->Height);
 			response->set_data((const char*)img->Data, img->Width * img->Height);
+
+			this->ThrowExceptionMethod();
 
 			status = grpc::Status(grpc::StatusCode::OK, "Finished grabbing image");
 			ReleaseImage(img);
@@ -52,7 +56,12 @@ public:
 			status = grpc::Status(grpc::StatusCode::INTERNAL, errStr);
 		}
 		catch(...){
-			std::string errStr = "";
+			std::ostringstream ss;
+			ss << "In ImageService::GetImage, occur unexception exception!" << std::endl;
+			ss << "Input: \n\tlightLevel = " << lightLevel << "\n\treqNumImgs = " << reqNumImgs << std::endl;
+
+			std::string errStr = ss.str();
+			std::cout << errStr << std::endl;
 			status = grpc::Status(grpc::StatusCode::INTERNAL, errStr);
 		}
 		
@@ -61,4 +70,10 @@ public:
 	
 private:
 	std::unique_ptr<ImageGrabber> _camera;
+
+	void ThrowExceptionMethod()
+	{
+		std::cout << "In ThrowExceptionMethod throw exception!" << std::endl;
+		throw new GenericException("Test cpp throw exception!");
+	}
 };
