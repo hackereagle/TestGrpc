@@ -30,9 +30,8 @@ namespace Client.BusinessLogics
                 try
                 {
                     ImageComputer.ImageRequest request = new ImageComputer.ImageRequest();
-                    request.FirstNum = "1";
-                    request.SecondNum = "2";
-                    request.Operator = "+";
+                    request.LightLevel = 255;
+                    request.GetNumbersOfImg = 1;
                     // TODO: set request member
                     var result = _client.GetImage(request);
                     // TODO: trans to bitmap and publish to observers.

@@ -96,6 +96,7 @@ public:
 		if (this->_filePaths.size() > 0) {
 			return ;
 		}
+		std::cout << "Reading images from " << path << std::endl;
 
 		this->_imgIndex = 0;
 		for (const auto& entry : fs::directory_iterator(path)) {
@@ -111,7 +112,7 @@ public:
 		}
 	}
 
-	Image* GetImage()
+	Image* GetImage(int lightLevel)
 	{
 		if (this->_filePaths.size() == 0) {
 			return nullptr;
@@ -120,6 +121,7 @@ public:
 		if ((++this->_imgIndex) >= this->_filePaths.size()) {
 			this->_imgIndex = 0;
 		}
+		std::cout << "Using " << lightLevel << " level light to grab!" << std::endl;
 
 		Image* img = ReadImage(this->_filePaths[this->_imgIndex]);
 

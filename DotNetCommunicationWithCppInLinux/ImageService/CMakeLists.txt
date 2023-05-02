@@ -11,6 +11,8 @@ set(CMAKE_VERBOSE_MAKEFILE OFF) # opened if want to debug dependency
 set(CMAKE_RULE_MESSAGES ON)
 set(CMAKE_CXX_FLAGS "-std=c++17${CMAKE_CXX_FLAGS}")
 
+add_compile_definitions(PROJECT_DIR="${CMAKE_SOURCE_DIR}")
+
 # compile proto file
 add_subdirectory(./Protos)
 

@@ -8,10 +8,8 @@ service ImageService {
 }
 
 message ImageRequest {
-  string firstNum = 1;
-  string operator = 2;
-  string secondNum = 3;
-
+  int32 lightLevel = 1;
+  int32 getNumbersOfImg = 2;
 }
 
 message ImageResult {
