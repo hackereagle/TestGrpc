@@ -66,15 +66,7 @@ namespace Client.BusinessLogics
                     byte* imgPtr = (byte*)bitmapData.Scan0;
                     int size = width * height;
                     for (int i = 0; i < size; i++)
-                    { 
                         *(imgPtr + i) = *(dataPtr + i);
-
-                        //if (i >= 0 && i < 10)
-                        //    SclinMiscLib.ConsoleWriterWrapper.Log($" {*(dataPtr + i)}");
-
-                        //if (i >= 100 && i < 110)
-                        //    SclinMiscLib.ConsoleWriterWrapper.Log($" {*(dataPtr + i)}");
-                    }
                 }
             }
             img.UnlockBits(bitmapData);

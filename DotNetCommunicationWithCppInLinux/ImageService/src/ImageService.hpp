@@ -39,19 +39,6 @@ public:
 			response->set_height(img->Height);
 			response->set_data((const char*)img->Data, img->Width * img->Height);
 
-			// Validation
-			// std::cout << "\tValidation 0~9 in byte array: ";
-			// for (int i = 0; i < 10; i++) {
-			// 	std::cout << " " << (int)*(img->Data + i);
-			// }
-			// std::cout << std::endl;
-
-			// std::cout << "\tValidation 100~109 in byte array: ";
-			// for (int i = 0; i < 10; i++) {
-			// 	std::cout << " " << (int)*(img->Data + 100 + i);
-			// }
-			// std::cout << std::endl;
-
 			status = grpc::Status(grpc::StatusCode::OK, "Finished grabbing image");
 			ReleaseImage(img);
 		}
