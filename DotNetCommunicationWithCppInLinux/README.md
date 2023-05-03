@@ -1,0 +1,4 @@
+# DotNetCommnicationWithCppInLinux
+This project test .NET application how to communicate with C++ application in linux via gRPC. In this project, C++ is service which grab image via camera and send image to client. .NET is client which send request to service and show image from service in picturebox.</br>
+In C++ part, it run on WSL and need gRPC dependency. You can find how to set up in ../TwoCppGrpcProjectCommunication project. There is shell script to set up and install enviroment related gRPC include protobuf. The grabber class is mock camera grab class. It will read image from Images folder. All images is downloaded from website: https://www.imageprocessingplace.com/root_files_V3/image_databases.htm.</br>
+In .NET part, you can refer to ../TwoGrpcProjectCommunication project to know how to set up .NET client project.</br>
