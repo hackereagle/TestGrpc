@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using CalculatorInstance.Base;
 using System.Windows.Input;
 using System.Windows.Controls;
+using CalculatorInstance.Bases;
 
 namespace CalculatorInstance.ViewModel
 {
-    internal class CalculatorViewModel : Base.ViewModelBase
+    internal class CalculatorViewModel : Base.ViewModelBase, ICalculatorViewModel
     {
         private AsyncCommand<object> _numberBtnCommand;
         private AsyncCommand<object> _operatorBtnCommand;
         private AsyncCommand<object> _otherBtnCommand;
-        BusinessLogics.CalculatorLogic _calculatorLogic;
-        public CalculatorViewModel()
+        ICalculatorBusinessLogic _calculatorLogic;
+        public CalculatorViewModel(ICalculatorBusinessLogic businessLogic)
         { 
-            this._calculatorLogic = new BusinessLogics.CalculatorLogic();
+            this._calculatorLogic = businessLogic;
             this._calculatorLogic.Value.Subscribe(x => { this.Value = x; });
             this._calculatorLogic.CurrentExpression.Subscribe(x => { this.CurrentExpression = x; });
 
@@ -30,7 +31,7 @@ namespace CalculatorInstance.ViewModel
         public ICommand OperatorBtn => _operatorBtnCommand;
         public ICommand OtherBtn => _otherBtnCommand;
 
-        private string _currentExpression;
+        private string _currentExpression = "";
         public string CurrentExpression
         {
             get { return _currentExpression; } 
@@ -41,7 +42,7 @@ namespace CalculatorInstance.ViewModel
             }
         }
 
-        private string _value;
+        private string _value = "";
         public string Value
         {
             get { return _value; }

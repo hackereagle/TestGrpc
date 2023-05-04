@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CalculatorInstance.Base;
 using CalculatorInstance;
+using CalculatorInstance.Bases;
 
 namespace CalculatorInstance.BusinessLogics
 {
-    internal class CalculatorLogic
+    internal class CalculatorLogic : ICalculatorBusinessLogic
     {
         private ISubject<string> _curExpression; // display on upper textblock
         public IObservable<string> CurrentExpression => _curExpression.AsObservable();
