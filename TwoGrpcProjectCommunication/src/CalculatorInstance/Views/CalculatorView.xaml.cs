@@ -23,6 +23,7 @@ namespace CalculatorInstance.Views
         public CalculatorView()
         {
             InitializeComponent();
+            this.DataContext = CalculatorInstance.CalculatorInstanceNavigateService.Instance.GetService<Bases.ICalculatorViewModel>();
         }
     }
 }
