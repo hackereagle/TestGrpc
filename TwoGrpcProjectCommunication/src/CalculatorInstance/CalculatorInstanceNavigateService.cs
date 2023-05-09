@@ -18,7 +18,13 @@ namespace CalculatorInstance
         private CalculatorInstanceNavigateService()
         { 
             var sc = new ServiceCollection();
-            sc.AddSingleton<Bases.ICalculatorBusinessLogic, BusinessLogics.CalculatorLogic>();
+            //sc.AddSingleton<Bases.ICalculatorBusinessLogic, BusinessLogics.CalculatorLogic>();
+            sc.AddSingleton<Bases.ICalculatorBusinessLogic, BusinessLogics.CalculatorFsmManager>(sp => 
+            {
+                BusinessLogics.CalculatorFsmManager mgr = new BusinessLogics.CalculatorFsmManager();
+                mgr.Initialize();
+                return mgr;
+            });
             sc.AddSingleton<Bases.ICalculatorViewModel, ViewModel.CalculatorViewModel>(sp =>
             {
                 return new ViewModel.CalculatorViewModel(sp.GetRequiredService<Bases.ICalculatorBusinessLogic>());
