@@ -23,6 +23,11 @@ namespace Application
         public MainWindow()
         {
             InitializeComponent();
+            this.ucCalulator.ObserveState
+                            .Subscribe(state =>
+                            {
+                                this.Title = $"Calculate(in state: {state.ToString()})";
+                            });
         }
     }
 }

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Application"
         xmlns:myview="clr-namespace:CalculatorInstance.Views;assembly=CalculatorInstance" x:Class="Application.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="721" Width="472">
+        Title="Calculate" Height="721" Width="472">
     <Grid>
-        <myview:CalculatorView/>
+        <myview:CalculatorView Name="ucCalulator"/>
     </Grid>
 </Window>

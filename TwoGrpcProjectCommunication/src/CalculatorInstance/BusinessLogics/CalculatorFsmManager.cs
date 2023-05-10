@@ -64,6 +64,8 @@ namespace CalculatorInstance.BusinessLogics
         public IObservable<string> CurrentExpression => throw new NotImplementedException();
 
         public IObservable<string> Value => throw new NotImplementedException();
+
+        public IObservable<CalculatorState> StateObservable => _fsmActions.StateNotification;
         #endregion Properties
 
         public Task ReceiveNumberCommand(string str)

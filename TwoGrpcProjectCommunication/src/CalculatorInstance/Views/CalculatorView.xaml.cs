@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorInstance.BusinessLogics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,12 @@ namespace CalculatorInstance.Views
         {
             InitializeComponent();
             this.DataContext = CalculatorInstance.CalculatorInstanceNavigateService.Instance.GetService<Bases.ICalculatorViewModel>();
+            ((CalculatorFsmManager)CalculatorInstance.CalculatorInstanceNavigateService.Instance.GetService<Bases.ICalculatorViewModel>()).StateObservable
+                .Subscribe(state =>
+                { 
+                });
         }
+
+        public IObservable<CalculatorState> ObserveState => ((CalculatorFsmManager)CalculatorInstance.CalculatorInstanceNavigateService.Instance.GetService<Bases.ICalculatorViewModel>()).StateObservable ;
     }
 }

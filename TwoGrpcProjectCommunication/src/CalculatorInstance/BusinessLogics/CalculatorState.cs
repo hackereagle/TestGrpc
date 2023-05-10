@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalculatorInstance.BusinessLogics
 {
-    internal enum CalculatorState : int
+    public enum CalculatorState : int
     {
         Idle,
         InputFirstNum,
