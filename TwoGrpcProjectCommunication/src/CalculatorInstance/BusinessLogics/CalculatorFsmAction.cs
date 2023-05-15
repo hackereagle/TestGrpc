@@ -62,6 +62,10 @@ namespace CalculatorInstance.BusinessLogics
         { 
         }
 
+        public void CalculateAndStore2First(Trigger trigger)
+        { 
+        }
+
         public void Calculate(Trigger trigger)
         { 
         }

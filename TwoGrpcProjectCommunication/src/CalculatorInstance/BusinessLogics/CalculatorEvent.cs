@@ -14,6 +14,5 @@ namespace CalculatorInstance.BusinessLogics
         PressEqualEvent,
         PressOtherEvent,
         PressAcButtonEvent,
-        PressOtherButtonEvent,
     }
 }
